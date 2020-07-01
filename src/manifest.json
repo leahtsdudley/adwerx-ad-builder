@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "Set Brand Colors",
+      "identifier": "adwerx-ad-builder.brand-colors-identifier",
+      "script": "./brand-colors.js"
+    },
+    {
+      "name": "Build Vanilla Ads",
+      "identifier": "adwerx-ad-builder.vanilla-ads-identifier",
+      "script": "./vanilla-ads.js"
+    },
+    {
+      "name": "Export Assets",
+      "identifier": "adwerx-ad-builder.export-assets-identifier",
+      "script": "./export-assets.js"
+    }
+  ],
+  "menu": {
+    "title": "Adwerx Ad Builder",
+    "items": [
+      "adwerx-ad-builder.brand-colors-identifier",
+      "adwerx-ad-builder.vanilla-ads-identifier",
+      "adwerx-ad-builder.export-assets-identifier"
+    ]
+  }
+}
