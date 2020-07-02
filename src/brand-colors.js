@@ -5,7 +5,7 @@ var document = require('sketch/dom').getSelectedDocument();
 export default function() {
   var brandCode = '';
   var colors = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
-  UI.getInputFromUser("Brand Name?", {
+  UI.getInputFromUser("Select A Brand Name", {
     type: UI.INPUT_TYPE.selection,
     possibleValues: ['Coldwell Banker', 'Century 21', 'Sotheby\'s International Realty', 'ERA']
   }, (err, value) => {
@@ -18,7 +18,7 @@ export default function() {
 
   switch (brandCode) {
     case 'Coldwell Banker':
-      colors = ['#012169', '#97999b', '#7d9bc1'];
+      colors = ['#012169', '#97999b', '#7D9BC1'];
       break;
     case 'Century 21':
       colors = ['#BEAF87', '#252526', '#E6E7E8'];
@@ -35,8 +35,7 @@ export default function() {
   var secondary = new Color(document, 'secondary');
   var tertiary = new Color(document, 'tertiary');
 
-  primary.setDefaultColor(colors[0]).update();
-  secondary.setDefaultColor(colors[1]).update();
-  tertiary.setDefaultColor(colors[2]).update();
-
+  primary.setInputLayer(colors[0]).update();
+  secondary.setInputLayer(colors[1]).update();
+  tertiary.setInputLayer(colors[2]).update();
 }

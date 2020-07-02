@@ -8,7 +8,8 @@ export default class Color {
   }
 
   update() {
-    this.setColor();
+    this.setDisplay();
+    this.setAdColors();
     this.setText();
     this.setFontColor();
   }
@@ -25,32 +26,19 @@ export default class Color {
     return this.document.getLayersNamed(this.display)[0];
   }
 
-  setDefaultColor(color) {
+  setInputLayer(color) {
+    // to programatically set brand colors
+    this.getInputLayer().text = color;
+    return this;
+  }
+
+  setDisplay() {
+    var color = this.getInputLayer().text
     this.getDisplayLayer().style.fills[0].color = color;
     return this;
   }
 
-  getSharedStyle() {
-    var sharedStyleId = this.getDisplayLayer().sharedStyleId;
-    return this.document.getSharedLayerStyleWithID(sharedStyleId);
-  }
-
-  setSharedStyle() {
-    this.getSharedStyle().style.fills[0].color = this.localColor();
-  }
-
-  setFontColor() {
-    var text = this.document.getLayersNamed(this.font);
-    for (var i = 0; i < text.length; i++) {
-      text[i].style.textColor = this.localColor()
-    }
-  }
-
-  localColor() {
-    return this.getDisplayLayer().style.fills[0].color
-  }
-
-  setColor() {
+  setAdColors() {
     this.setSharedStyle();
     var layers = this.getSharedStyle().getAllInstancesLayers();
     for (var i = 0; i < layers.length; i++) {
@@ -64,6 +52,32 @@ export default class Color {
         phoneBorderOverlaid[j].style.borders[0].color = this.outputColor(this.localColor())
       }
     }
+  }
+
+  setText() {
+    this.getTextLayer().text = this.localColor().slice(0, -2);
+    this.getTextLayer().hidden = this.isEmpty();
+    this.getDisplayLayer().hidden = this.isEmpty();
+  }
+
+  setFontColor() {
+    var text = this.document.getLayersNamed(this.font);
+    for (var i = 0; i < text.length; i++) {
+      text[i].style.textColor = this.localColor()
+    }
+  }
+
+  getSharedStyle() {
+    var sharedStyleId = this.getDisplayLayer().sharedStyleId;
+    return this.document.getSharedLayerStyleWithID(sharedStyleId);
+  }
+
+  setSharedStyle() {
+    this.getSharedStyle().style.fills[0].color = this.localColor();
+  }
+
+  localColor() {
+    return this.getDisplayLayer().style.fills[0].color
   }
 
   findLocalText(colorLayer) {
@@ -88,14 +102,8 @@ export default class Color {
     })
   }
 
-  isWhite() {
-    return (this.localColor() === '#FFFFFF')
-  }
-
-  setText() {
-    this.getTextLayer().text = this.localColor().slice(0, -2);
-    this.getTextLayer().hidden = this.isWhite();
-    this.getDisplayLayer().hidden = this.isWhite();
+  isEmpty() {
+    return (this.getInputLayer() === 'undefined' )
   }
 
   outputColor(backgroundColor) {
