@@ -7,13 +7,17 @@ import ColorSwatch from "./classes/color-swatch";
 var document = require('sketch/dom').getSelectedDocument();
 
 export default function() {
+  this.updateColors();
+
+  sketch.UI.message('Ads Updated Successfully!');
+}
+
+export function updateColors() {
   new Color(document, 'primary').update();
   new Color(document, 'secondary').update();
   this.handleTertiary();
   new Color(document, 'additional-1').update();
   new Color(document, 'additional-2').update();
-
-  sketch.UI.message('Ads Updated Successfully!');
 }
 
 export function handleTertiary() {

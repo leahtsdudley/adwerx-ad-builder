@@ -5,13 +5,19 @@ export default class Color {
     this.text = fieldName + "-color-text";
     this.display = fieldName + "-color-display";
     this.font = fieldName + "-font-color";
+    this.group = fieldName + " color";
   }
 
   update() {
-    this.setDisplay();
-    this.setAdColors();
-    this.setText();
-    this.setFontColor();
+    if (this.isEmpty()) {
+      var colorGroup = this.document.getLayersNamed(this.group)[0];
+      colorGroup.hidden = true;
+    } else {
+      this.setDisplay();
+      this.setAdColors();
+      this.setText();
+      this.setFontColor();
+    }
   }
 
   getInputLayer() {
@@ -56,8 +62,6 @@ export default class Color {
 
   setText() {
     this.getTextLayer().text = this.localColor().slice(0, -2);
-    this.getTextLayer().hidden = this.isEmpty();
-    this.getDisplayLayer().hidden = this.isEmpty();
   }
 
   setFontColor() {
@@ -103,7 +107,7 @@ export default class Color {
   }
 
   isEmpty() {
-    return (this.getInputLayer() === 'undefined' )
+    return (this.getInputLayer() === undefined )
   }
 
   outputColor(backgroundColor) {
