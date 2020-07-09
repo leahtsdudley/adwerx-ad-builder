@@ -3,11 +3,13 @@ import sketch from 'sketch'
 
 import Color from './classes/color';
 import ColorSwatch from "./classes/color-swatch";
+import TextField from './classes/text-field';
 
 var document = require('sketch/dom').getSelectedDocument();
 
 export default function() {
   this.updateColors();
+  this.updateTextFields();
 
   sketch.UI.message('Ads Updated Successfully!');
 }
@@ -25,4 +27,9 @@ export function handleTertiary() {
   tertiary.update();
   var hideTertiary = tertiary.isEmpty();
   new ColorSwatch(document, hideTertiary).update();
+}
+
+export function updateTextFields() {
+  new TextField(document, 'Partner Name').update();
+  new TextField(document, 'Location').update();
 }
