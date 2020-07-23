@@ -4,6 +4,7 @@ import sketch from 'sketch'
 import Color from './classes/color';
 import ColorSwatch from "./classes/color-swatch";
 import TextField from './classes/text-field';
+import PhoneField from './classes/phone-field';
 
 var document = require('sketch/dom').getSelectedDocument();
 
@@ -32,4 +33,5 @@ export function handleTertiary() {
 export function updateTextFields() {
   new TextField(document, 'Partner Name').update();
   new TextField(document, 'Location').update();
+  new PhoneField(document, 'Area Code').update();
 }
