@@ -8,9 +8,9 @@
       "script": "./brand-colors.js"
     },
     {
-      "name": "Build Vanilla Ads",
-      "identifier": "adwerx-ad-builder.vanilla-ads-identifier",
-      "script": "./vanilla-ads.js"
+      "name": "Build Default Ads",
+      "identifier": "adwerx-ad-builder.default-ads-identifier",
+      "script": "./default-ads.js"
     },
     {
       "name": "Export Assets",
@@ -22,7 +22,7 @@
     "title": "Adwerx Ad Builder",
     "items": [
       "adwerx-ad-builder.brand-colors-identifier",
-      "adwerx-ad-builder.vanilla-ads-identifier",
+      "adwerx-ad-builder.default-ads-identifier",
       "adwerx-ad-builder.export-assets-identifier"
     ]
   }
