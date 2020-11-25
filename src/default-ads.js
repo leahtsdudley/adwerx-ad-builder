@@ -12,7 +12,7 @@ var document = require('sketch/dom').getSelectedDocument();
 export default function() {
   this.updateColors();
   this.updateTextFields();
-  this.updateLogos();
+  // this.updateLogos();
 
   sketch.UI.message('Ads Updated Successfully!');
 }

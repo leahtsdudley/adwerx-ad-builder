@@ -33,7 +33,6 @@ export default class Color {
   }
 
   setInputLayer(color) {
-    // to programatically set brand colors
     this.getInputLayer().text = color;
     return this;
   }
@@ -46,17 +45,42 @@ export default class Color {
 
   setAdColors() {
     this.setSharedStyle();
-    var layers = this.getSharedStyle().getAllInstancesLayers();
-    for (var i = 0; i < layers.length; i++) {
-      layers[i].style.syncWithSharedStyle(this.getSharedStyle());
-      var textOverlaid = this.findLocalText(layers[i]);
-      for (var j = 0; j < textOverlaid.length; j++) {
-        textOverlaid[j].style.textColor = this.outputColor(this.localColor())
-      }
-      var phoneBorderOverlaid = this.findLocalPhoneBorder(layers[i]);
-      for (var j = 0; j < phoneBorderOverlaid.length; j++) {
-        phoneBorderOverlaid[j].style.borders[0].color = this.outputColor(this.localColor())
-      }
+    var sharedColorLayers = this.getSharedStyle().getAllInstancesLayers();
+    for (var i = 0; i < sharedColorLayers.length; i++) {
+      sharedColorLayers[i].style.syncWithSharedStyle(this.getSharedStyle());
+      var textLayers = this.findLocalText(sharedColorLayers[i]);
+      this.setTextColor(textLayers);
+      var phoneBorderLayers = this.findLocalPhoneBorders(sharedColorLayers[i]);
+      this.setPhoneBorderColor(phoneBorderLayers);
+    }
+    if (this.input === 'primary-color-input') {
+      this.setOverlayBarColor();
+    }
+  }
+
+  getSharedStyle() {
+    var sharedStyleId = this.getDisplayLayer().sharedStyleId;
+    return this.document.getSharedLayerStyleWithID(sharedStyleId);
+  }
+
+  setSharedStyle() {
+    this.getSharedStyle().style.fills[0].color = this.localColor();
+  }
+
+  findLocalText(colorLayer) {
+    var artboard = colorLayer.getParentArtboard();
+    return artboard.layers.filter(function (layer) {
+      return layer.type === 'Text' &&
+        layer.frame.y >= colorLayer.frame.y &&
+        layer.frame.y <= (colorLayer.frame.y + colorLayer.frame.height) &&
+        layer.frame.x >= colorLayer.frame.x &&
+        layer.frame.x <= (colorLayer.frame.x + colorLayer.frame.width)
+    })
+  }
+
+  setTextColor(textLayers) {
+    for (var j = 0; j < textLayers.length; j++) {
+      textLayers[j].style.textColor = this.outputColor(this.localColor())
     }
   }
 
@@ -71,31 +95,7 @@ export default class Color {
     }
   }
 
-  getSharedStyle() {
-    var sharedStyleId = this.getDisplayLayer().sharedStyleId;
-    return this.document.getSharedLayerStyleWithID(sharedStyleId);
-  }
-
-  setSharedStyle() {
-    this.getSharedStyle().style.fills[0].color = this.localColor();
-  }
-
-  localColor() {
-    return this.getDisplayLayer().style.fills[0].color
-  }
-
-  findLocalText(colorLayer) {
-    var artboard = colorLayer.getParentArtboard();
-    return artboard.layers.filter(function (layer) {
-      return layer.type === 'Text' &&
-        layer.frame.y >= colorLayer.frame.y &&
-        layer.frame.y <= (colorLayer.frame.y + colorLayer.frame.height) &&
-        layer.frame.x >= colorLayer.frame.x &&
-        layer.frame.x <= (colorLayer.frame.x + colorLayer.frame.width)
-    })
-  }
-
-  findLocalPhoneBorder(colorLayer) {
+  findLocalPhoneBorders(colorLayer) {
     var artboard = colorLayer.getParentArtboard();
     return artboard.layers.filter(function (layer) {
       return layer.type === 'ShapePath' && layer.name === 'Phone Border' &&
@@ -104,6 +104,29 @@ export default class Color {
         layer.frame.x >= colorLayer.frame.x &&
         layer.frame.x <= (colorLayer.frame.x + colorLayer.frame.width)
     })
+  }
+
+  setPhoneBorderColor(phoneBorderLayers) {
+    for (var j = 0; j < phoneBorderLayers.length; j++) {
+      phoneBorderLayers[j].style.borders[0].color = this.outputColor(this.localColor())
+    }
+  }
+
+  setOverlayBarColor() {
+    var overlayBarLayers = this.document.getLayersNamed('Overlay Bar');
+    log(overlayBarLayers.length);
+    for (var j = 0; j < overlayBarLayers.length; j++) {
+      var barGradient = overlayBarLayers[j].style.fills[0].gradient
+      log(this.localColor());
+      // Alpha 57%
+      barGradient.stops[0].color = (this.localColor().slice(0, -2) + '91');
+      // Alpha 92%
+      barGradient.stops[1].color = (this.localColor().slice(0, -2) + 'EB');
+    }
+  }
+
+  localColor() {
+    return this.getDisplayLayer().style.fills[0].color
   }
 
   isEmpty() {

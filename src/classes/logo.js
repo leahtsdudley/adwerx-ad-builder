@@ -22,7 +22,7 @@ export default class Logo {
     };
   }
 
-  getInputLayer() {
+  getLogoCanvas() {
     var symbolName = "Logos/" + this.logoType
     var symbols = this.document.getSymbols();
     return symbols.filter(function (symbol) {
@@ -30,9 +30,14 @@ export default class Logo {
     })[0];
   }
 
+  getLogoImage() {
+    var logoCanvas = this.getLogoCanvas();
+    return logoCanvas.layers[0];
+  }
+
   sizeCanvasToFit() {
-    var logoCanvas = this.getInputLayer();
-    var logoImage = logoCanvas.layers[0];
+    var logoCanvas = this.getLogoCanvas();
+    var logoImage = this.getLogoImage();
     logoImage.frame.x = 0;
     logoImage.frame.y = 0;
     var initial_height = logoImage.frame.height;
@@ -54,8 +59,8 @@ export default class Logo {
   centerAlign(artboardName) {
     this.alignVertical = 'middle';
     this.alignHorizontal = 'center';
-    this.padding = padding || 5;
-    var localLogo = this.getInputLayer();
+    this.padding = 5;
+    var localLogo = this.getLogoImage();
     this.setWrapper(artboardName);
     localLogo.frame = this.setDimensions();
   }
@@ -64,7 +69,7 @@ export default class Logo {
     this.alignVertical = 'middle';
     this.alignHorizontal = 'left';
     this.padding = padding || 5;
-    var localLogo = this.getInputLayer();
+    var localLogo = this.getLogoCanvas();
     this.setWrapper(artboardName);
     localLogo.frame = this.setDimensions();
     var office = this.getLayer('Partner Name', artboardName);
@@ -77,7 +82,7 @@ export default class Logo {
     this.alignVertical = 'middle';
     this.alignHorizontal = 'right';
     this.padding = padding || 5;
-    var localLogo = this.getInputLayer();
+    var localLogo = this.getLogoCanvas();
     this.setWrapper(artboardName);
     localLogo.frame = this.setDimensions();
   }
@@ -149,7 +154,7 @@ export default class Logo {
   }
 
   imageAspectRatio() {
-    var logo = this.getInputLayer();
+    var logo = this.getLogoCanvas();
     return this.aspectRatio(logo.frame.width, logo.frame.height);
   }
 
