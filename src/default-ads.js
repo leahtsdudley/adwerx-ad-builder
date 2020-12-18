@@ -12,7 +12,7 @@ var document = require('sketch/dom').getSelectedDocument();
 export default function() {
   this.updateColors();
   this.updateTextFields();
-  // this.updateLogos();
+  this.updateLogos();
 
   sketch.UI.message('Ads Updated Successfully!');
 }
@@ -36,6 +36,8 @@ export function updateTextFields() {
   new TextField(document, 'Partner Name').update();
   new TextField(document, 'Location').update();
   new PhoneField(document, 'Area Code').update();
+  new TextField(document, 'Listing Tagline').update();
+  new TextField(document, 'Retargeting Tagline').update();
 }
 
 export function updateLogos() {

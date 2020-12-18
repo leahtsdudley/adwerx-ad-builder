@@ -10,8 +10,8 @@ export default class TextField {
     var layers = this.getFieldLayers();
     for (var i = 0; i < layers.length; i++) {
       if (layers[i].type === 'SymbolInstance') {
-        layers[i].overrides[0].value = text
-        layers[i].overrides[2].value = this.getCharacterLength(text);
+        layers[i].setOverrideValue(layers[i].overrides[0], text)
+        // layers[i].overrides[1].value = this.getCharacterLength(text);
       } else {
         layers[i].text = text;
       }

@@ -114,10 +114,8 @@ export default class Color {
 
   setOverlayBarColor() {
     var overlayBarLayers = this.document.getLayersNamed('Overlay Bar');
-    log(overlayBarLayers.length);
     for (var j = 0; j < overlayBarLayers.length; j++) {
       var barGradient = overlayBarLayers[j].style.fills[0].gradient
-      log(this.localColor());
       // Alpha 57%
       barGradient.stops[0].color = (this.localColor().slice(0, -2) + '91');
       // Alpha 92%
