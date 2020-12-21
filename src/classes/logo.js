@@ -7,18 +7,17 @@ export default class Logo {
   update() {
     this.sizeCanvasToFit();
     if (this.logoType === 'Listing') {
-      this.centerAlign('listings-web');
-      // this.centerAlign('Social Media Listing Ad');
+      // this.centerAlign('listings-1-web');
+      // this.centerAlign('Social Media Listing Ad Style 1');
     }
     else if (this.logoType === 'Brand') {
-      // this.leftAlign('brand-web');
-      // this.leftAlign('sphere-web');
-      // this.centerAlign('Social Media Brand Ad');
-      // this.centerAlign('brand-ad-builder', 1);
-      // this.leftAlign('brand-banner-1');
-      // this.leftAlign('brand-banner-2');
-      // this.leftAlign('brand-mobile-3');
-      // this.rightAlign('tv-awd', 10);
+      // this.leftAlign('brand-1-web');
+      // this.leftAlign('sphere-1-web');
+      // this.centerAlign('Social Media Brand Ad Style 1');
+      // this.centerAlign('brand-1-ad-builder', 1);
+      // this.leftAlign('brand-1-banner-slide-one');
+      // this.leftAlign('brand-1-banner-slide-two');
+      // this.leftAlign('brand-1-mobile-slide-three');
     };
   }
 
@@ -76,15 +75,6 @@ export default class Logo {
     var location = this.getLayer('Location', artboardName);
     location.frame.x = this.displayLeft() + this.displayWidth() + this.padding;
     office.frame.x = this.displayLeft() + this.displayWidth() + this.padding;
-  }
-
-  rightAlign(artboardName, padding) {
-    this.alignVertical = 'middle';
-    this.alignHorizontal = 'right';
-    this.padding = padding || 5;
-    var localLogo = this.getLogoCanvas();
-    this.setWrapper(artboardName);
-    localLogo.frame = this.setDimensions();
   }
 
   setDimensions() {
