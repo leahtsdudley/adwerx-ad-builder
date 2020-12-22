@@ -42,20 +42,20 @@ export function updateTextFields() {
 }
 
 export function updateLogos() {
-  new LogoSizer(document, 'Listing').update();
-  var listingLogo = new LogoSizer(document, 'Listing').getLogoCanvas();
-  var listingLogoLocator = new LogoLocator(document, listingLogo)
-  listingLogoLocator.centerAlign('listings-1-web');
-  listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
+  // new LogoSizer(document, 'Listing').update();
+  // var listingLogo = new LogoSizer(document, 'Listing').getLogoCanvas();
+  // var listingLogoLocator = new LogoLocator(document, listingLogo)
+  // listingLogoLocator.centerAlign('listings-1-web');
+  // listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
 
-  // new LogoSizer(document, 'Brand').update();
-  // var brandLogo = new LogoSizer(document, 'Brand').getLogoCanvas();
-  // var brandLogoLocator = new LogoLocator(document, brandLogo)
-  // brandLogoLocator.leftAlign('brand-1-web');
-  // brandLogoLocator.leftAlign('sphere-1-web');
-  // brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
-  // brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
-  // brandLogoLocator.leftAlign('brand-1-banner-slide-one');
-  // brandLogoLocator.leftAlign('brand-1-banner-slide-two');
-  // brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
+  new LogoSizer(document, 'Brand').update();
+  var brandLogo = new LogoSizer(document, 'Brand').getLogoCanvas();
+  var brandLogoLocator = new LogoLocator(document, brandLogo)
+  brandLogoLocator.leftAlign('brand-1-web');
+  brandLogoLocator.leftAlign('sphere-1-web');
+  brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
+  brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
+  brandLogoLocator.leftAlign('brand-1-banner-slide-one');
+  brandLogoLocator.leftAlign('brand-1-banner-slide-two');
+  brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
 }

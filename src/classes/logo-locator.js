@@ -9,7 +9,7 @@ export default class LogoLocator {
     this.alignHorizontal = 'center';
     this.padding = padding || 5;
     var localLogo = this.findArtboardLogo(artboardName);
-    this.setWrapper('Logo Wrapper', artboardName);
+    this.setWrapper(artboardName);
     localLogo.frame = this.setDimensions();
   }
 
@@ -17,13 +17,14 @@ export default class LogoLocator {
     this.alignVertical = 'middle';
     this.alignHorizontal = 'left';
     this.padding = padding || 5;
-    var localLogo = this.getLogoCanvas();
+    var localLogo = this.findArtboardLogo(artboardName);
     this.setWrapper(artboardName);
     localLogo.frame = this.setDimensions();
-    var partner = this.getLayer('Partner Name', artboardName);
-    var location = this.getLayer('Location', artboardName);
-    location.frame.x = this.displayLeft() + this.displayWidth() + this.padding;
-    partner.frame.x = this.displayLeft() + this.displayWidth() + this.padding;
+    if (artboardName === 'sphere-1-web' ||
+        artboardName === 'brand-1-web' ||
+        artboardName === 'brand-1-mobile-slide-three') {
+      this.setNameAndLocation(artboardName)
+    }
   }
 
   findArtboardLogo(artboardName) {
@@ -32,8 +33,8 @@ export default class LogoLocator {
     })[0]
   }
 
-  setWrapper(wrapperName, artboardName) {
-    var wrappers = this.document.getLayersNamed(wrapperName);
+  setWrapper(artboardName) {
+    var wrappers = this.document.getLayersNamed('Logo Wrapper');
     this.wrap = wrappers.filter(function (wrapper) {
       return wrapper.getParentArtboard().name === artboardName
     })[0].frame
@@ -46,6 +47,13 @@ export default class LogoLocator {
       width: this.displayWidth(),
       height: this.displayHeight()
     }
+  }
+
+  getLayer(name, artboardName) {
+    var layers = this.document.getLayersNamed(name);
+    return layers.filter(function (layer) {
+      return layer.getParentArtboard().name === artboardName
+    })[0];
   }
 
   displayLeft() {
@@ -104,6 +112,13 @@ export default class LogoLocator {
 
   maxAspectRatio() {
     return this.aspectRatio(this.maxWidth(), this.maxHeight())
+  }
+
+  setNameAndLocation(artboardName) {
+    var partner = this.getLayer('Partner Name', artboardName);
+    var location = this.getLayer('Location', artboardName);
+    partner.frame.x = this.displayLeft() + this.displayWidth() + 10;
+    location.frame.x = this.displayLeft() + this.displayWidth() + 10;
   }
 
 }
