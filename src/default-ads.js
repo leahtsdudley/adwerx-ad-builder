@@ -42,11 +42,11 @@ export function updateTextFields() {
 }
 
 export function updateLogos() {
-  // new LogoSizer(document, 'Listing').update();
-  // var listingLogo = new LogoSizer(document, 'Listing').getLogoCanvas();
-  // var listingLogoLocator = new LogoLocator(document, listingLogo)
-  // listingLogoLocator.centerAlign('listings-1-web');
-  // listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
+  new LogoSizer(document, 'Listing').update();
+  var listingLogo = new LogoSizer(document, 'Listing').getLogoCanvas();
+  var listingLogoLocator = new LogoLocator(document, listingLogo)
+  listingLogoLocator.centerAlign('listings-1-web');
+  listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
 
   new LogoSizer(document, 'Brand').update();
   var brandLogo = new LogoSizer(document, 'Brand').getLogoCanvas();

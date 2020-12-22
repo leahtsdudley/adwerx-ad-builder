@@ -35,23 +35,4 @@ export default class LogoSizer {
     logoImage.frame.width = end_width;
   }
 
-  // getWrapper(artboard) {
-  //   return artboard.getLayersNamed('Logo Wrapper').frame;
-  // }
-
-  // getLogoLayer(artboard) {
-  //   return artboard.getLayersNamed('Logos/' + this.logoType);
-  // }
-
-  // centerAlign(artboardName) {
-  //   var adArtboard = this.document.getLayersNamed(artboardName);
-  //   var localLogo = this.getLogoLayer(artboard);
-  //   var wrapper = this.getWrapper(adArtboard);
-  //   var padding = 5;
-  //   localLogo.frame.x = this.displayLeft('center', wrapper, padding);
-  //   localLogo.frame.y = this.displayTop('center', wrapper, padding);
-  //   localLogo.frame.width = this.displayWidth();
-  //   localLogo.frame.height = this.displayHeight();
-  // }
-
 }
