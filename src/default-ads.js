@@ -7,6 +7,7 @@ import TextField from './classes/text-field';
 import PhoneField from './classes/phone-field';
 import LogoSizer from './classes/logo-sizer';
 import LogoLocator from './classes/logo-locator';
+import Image from './classes/image';
 
 var document = require('sketch/dom').getSelectedDocument();
 
@@ -14,6 +15,7 @@ export default function() {
   this.updateColors();
   this.updateTextFields();
   this.updateLogos();
+  this.updateImages();
 
   sketch.UI.message('Ads Updated Successfully!');
 }
@@ -58,4 +60,9 @@ export function updateLogos() {
   brandLogoLocator.leftAlign('brand-1-banner-slide-one');
   brandLogoLocator.leftAlign('brand-1-banner-slide-two');
   brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
+}
+
+export function updateImages() {
+  new Image(document, 'Agent').update();
+  new Image(document, 'House').update();
 }

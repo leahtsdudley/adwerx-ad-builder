@@ -24,6 +24,7 @@ export default class LogoSizer {
   sizeCanvasToFit() {
     var logoCanvas = this.getLogoCanvas();
     var logoImage = this.getLogoImage();
+    if (logoImage === undefined) return;
     logoImage.frame.x = 0;
     logoImage.frame.y = 0;
     var initial_height = logoImage.frame.height;
