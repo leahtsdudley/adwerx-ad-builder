@@ -5,9 +5,9 @@ import Color from './classes/color';
 import ColorSwatch from "./classes/color-swatch";
 import TextField from './classes/text-field';
 import PhoneField from './classes/phone-field';
-import LogoSizer from './classes/logo-sizer';
+import ImageSizer from './classes/image-sizer';
 import LogoLocator from './classes/logo-locator';
-import Image from './classes/image';
+import PhotoLocator from './classes/photo-locator';
 
 var document = require('sketch/dom').getSelectedDocument();
 
@@ -15,7 +15,7 @@ export default function() {
   this.updateColors();
   this.updateTextFields();
   this.updateLogos();
-  this.updateImages();
+  // this.updateImages();
 
   sketch.UI.message('Ads Updated Successfully!');
 }
@@ -44,14 +44,14 @@ export function updateTextFields() {
 }
 
 export function updateLogos() {
-  new LogoSizer(document, 'Listing').update();
-  var listingLogo = new LogoSizer(document, 'Listing').getLogoCanvas();
+  new ImageSizer(document, 'Logos', 'Listing').update();
+  var listingLogo = new ImageSizer(document, 'Logos', 'Listing').getImageCanvas();
   var listingLogoLocator = new LogoLocator(document, listingLogo)
   listingLogoLocator.centerAlign('listings-1-web');
   listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
 
-  new LogoSizer(document, 'Brand').update();
-  var brandLogo = new LogoSizer(document, 'Brand').getLogoCanvas();
+  new ImageSizer(document, 'Logos', 'Brand').update();
+  var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
   var brandLogoLocator = new LogoLocator(document, brandLogo)
   brandLogoLocator.leftAlign('brand-1-web');
   brandLogoLocator.leftAlign('sphere-1-web');
@@ -63,6 +63,8 @@ export function updateLogos() {
 }
 
 export function updateImages() {
-  new Image(document, 'Agent').update();
-  new Image(document, 'House').update();
+  new ImageSizer(document, 'Photos', 'Agent').update();
+  new ImageSizer(document, 'Photos', 'House').update();
+  var agentPhoto = new ImageSizer(document, 'Photos', 'Agent').getImageCanvas();
+  new PhotoLocator(document, 'Agent', agentPhoto).update();
 }

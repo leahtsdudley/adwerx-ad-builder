@@ -1,6 +1,7 @@
-export default class Image {
-  constructor(document, imageType) {
+export default class ImageSizer {
+  constructor(document, imageSource, imageType) {
     this.document = document;
+    this.imageSource = imageSource;
     this.imageType = imageType;
   }
 
@@ -9,7 +10,7 @@ export default class Image {
   }
 
   getImageCanvas() {
-    var symbolName = "Images/" + this.imageType
+    var symbolName = this.imageSource + '/' + this.imageType
     var symbols = this.document.getSymbols();
     return symbols.filter(function (symbol) {
       return symbol.name === symbolName
