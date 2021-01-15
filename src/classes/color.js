@@ -51,7 +51,9 @@ export default class Color {
       var textLayers = this.findLocalText(sharedColorLayers[i]);
       this.setTextColor(textLayers);
       var phoneBorderLayers = this.findLocalPhoneBorders(sharedColorLayers[i]);
-      this.setPhoneBorderColor(phoneBorderLayers);
+      if (phoneBorderLayers.length > 0) {
+        this.setPhoneBorderColor(phoneBorderLayers);
+      }
     }
     if (this.input === 'primary-color-input') {
       this.setOverlayBarColor();
@@ -110,6 +112,13 @@ export default class Color {
     for (var j = 0; j < phoneBorderLayers.length; j++) {
       phoneBorderLayers[j].style.borders[0].color = this.outputColor(this.localColor())
     }
+  }
+
+  findGroupedText(colorLayer) {
+    var artboard = colorLayer.getParentArtboard();
+    return artboard.layers.filter(function (layer) {
+      return layer.type === 'Group' && layer.name === 'Phone and Location'
+    })
   }
 
   setOverlayBarColor() {
