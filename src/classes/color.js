@@ -50,9 +50,9 @@ export default class Color {
       sharedColorLayers[i].style.syncWithSharedStyle(this.getSharedStyle());
       var textLayers = this.findLocalText(sharedColorLayers[i]);
       this.setTextColor(textLayers);
-      var phoneBorderLayers = this.findLocalPhoneBorders(sharedColorLayers[i]);
-      if (phoneBorderLayers.length > 0) {
-        this.setPhoneBorderColor(phoneBorderLayers);
+      var buttonBorderLayers = this.findLocalButtonBorders(sharedColorLayers[i]);
+      if (buttonBorderLayers.length > 0) {
+        this.setButtonBorderColor(buttonBorderLayers);
       }
     }
     if (this.input === 'primary-color-input') {
@@ -97,10 +97,10 @@ export default class Color {
     }
   }
 
-  findLocalPhoneBorders(colorLayer) {
+  findLocalButtonBorders(colorLayer) {
     var artboard = colorLayer.getParentArtboard();
     return artboard.layers.filter(function (layer) {
-      return layer.type === 'ShapePath' && layer.name === 'Phone Border' &&
+      return layer.type === 'ShapePath' && layer.name === 'Button Border' &&
         layer.frame.y >= colorLayer.frame.y &&
         layer.frame.y <= (colorLayer.frame.y + colorLayer.frame.height) &&
         layer.frame.x >= colorLayer.frame.x &&
@@ -108,9 +108,9 @@ export default class Color {
     })
   }
 
-  setPhoneBorderColor(phoneBorderLayers) {
-    for (var j = 0; j < phoneBorderLayers.length; j++) {
-      phoneBorderLayers[j].style.borders[0].color = this.outputColor(this.localColor())
+  setButtonBorderColor(buttonBorderLayers) {
+    for (var j = 0; j < buttonBorderLayers.length; j++) {
+      buttonBorderLayers[j].style.borders[0].color = this.outputColor(this.localColor())
     }
   }
 

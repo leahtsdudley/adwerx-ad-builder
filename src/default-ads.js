@@ -12,15 +12,15 @@ import PhotoLocator from './classes/photo-locator';
 var document = require('sketch/dom').getSelectedDocument();
 
 export default function() {
-  this.updateColors();
-  this.updateTextFields();
-  this.updateLogos();
-  // this.updateImages();
+  var vertical = new TextField(document, 'Vertical').outputText();
+  this.updateColors(vertical);
+  this.updateTextFields(vertical);
+  this.updateLogos(vertical);
 
   sketch.UI.message('Ads Updated Successfully!');
 }
 
-export function updateColors() {
+export function updateColors(vertical) {
   new Color(document, 'primary').update();
   new Color(document, 'secondary').update();
   this.handleTertiary();
@@ -35,20 +35,28 @@ export function handleTertiary() {
   new ColorSwatch(document, hideTertiary).update();
 }
 
-export function updateTextFields() {
+export function updateTextFields(vertical) {
   new TextField(document, 'Partner Name').update();
   new TextField(document, 'Location').update();
-  new PhoneField(document, 'Area Code').update();
-  new TextField(document, 'Listing Tagline').update();
+  if (vertical === 'Real Estate') {
+    new PhoneField(document, 'Area Code').update();
+    new TextField(document, 'Listing Tagline').update();
+  } else if (vertical === 'Mortgage') {
+    new TextField(document, 'Button Text').update();
+    new TextField(document, 'Title').update();
+    new TextField(document, 'Disclaimer').update();
+  }
   new TextField(document, 'Retargeting Tagline').update();
 }
 
-export function updateLogos() {
-  new ImageSizer(document, 'Logos', 'Listing').update();
-  var listingLogo = new ImageSizer(document, 'Logos', 'Listing').getImageCanvas();
-  var listingLogoLocator = new LogoLocator(document, listingLogo)
-  listingLogoLocator.centerAlign('listings-1-web');
-  listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
+export function updateLogos(vertical) {
+  if (vertical === 'Real Estate') {
+    new ImageSizer(document, 'Logos', 'Listing').update();
+    var listingLogo = new ImageSizer(document, 'Logos', 'Listing').getImageCanvas();
+    var listingLogoLocator = new LogoLocator(document, listingLogo)
+    listingLogoLocator.centerAlign('listings-1-web');
+    listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
+  }
 
   new ImageSizer(document, 'Logos', 'Brand').update();
   var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
@@ -62,9 +70,11 @@ export function updateLogos() {
   brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
 }
 
-export function updateImages() {
+export function updateImages(vertical) {
   new ImageSizer(document, 'Photos', 'Agent').update();
-  new ImageSizer(document, 'Photos', 'House').update();
+  if (vertical === 'Real Estate') {
+    new ImageSizer(document, 'Photos', 'House').update();
+  }
   var agentPhoto = new ImageSizer(document, 'Photos', 'Agent').getImageCanvas();
   new PhotoLocator(document, 'Agent', agentPhoto).update();
 }

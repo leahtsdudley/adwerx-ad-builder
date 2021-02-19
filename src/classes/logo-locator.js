@@ -23,7 +23,7 @@ export default class LogoLocator {
     if (artboardName === 'sphere-1-web' ||
         artboardName === 'brand-1-web' ||
         artboardName === 'brand-1-mobile-slide-three') {
-      this.setNameAndLocation(artboardName)
+      this.setBottomBarText(artboardName)
     }
   }
 
@@ -114,11 +114,9 @@ export default class LogoLocator {
     return this.aspectRatio(this.maxWidth(), this.maxHeight())
   }
 
-  setNameAndLocation(artboardName) {
-    var partner = this.getLayer('Partner Name', artboardName);
-    var location = this.getLayer('Location', artboardName);
-    partner.frame.x = this.displayLeft() + this.displayWidth() + 10;
-    location.frame.x = this.displayLeft() + this.displayWidth() + 10;
+  setBottomBarText(artboardName) {
+    var text = this.getLayer('Bottom Bar Text', artboardName);
+    text.frame.x = this.displayLeft() + this.displayWidth() + 10;
   }
 
 }
