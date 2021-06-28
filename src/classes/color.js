@@ -8,13 +8,13 @@ export default class Color {
     this.group = fieldName + " color";
   }
 
-  update() {
+  update(vertical) {
     if (this.isEmpty()) {
       var colorGroup = this.document.getLayersNamed(this.group)[0];
       colorGroup.hidden = true;
     } else {
       this.setDisplay();
-      this.setAdColors();
+      this.setAdColors(vertical);
       this.setText();
       this.setFontColor();
     }
@@ -43,7 +43,7 @@ export default class Color {
     return this;
   }
 
-  setAdColors() {
+  setAdColors(vertical) {
     this.setSharedStyle();
     var sharedColorLayers = this.getSharedStyle().getAllInstancesLayers();
     for (var i = 0; i < sharedColorLayers.length; i++) {
@@ -56,7 +56,7 @@ export default class Color {
       }
     }
     if (this.input === 'primary-color-input') {
-      this.setOverlayBarColor();
+      this.setOverlayBarColor(vertical);
     }
   }
 
@@ -121,14 +121,18 @@ export default class Color {
     })
   }
 
-  setOverlayBarColor() {
+  setOverlayBarColor(vertical) {
     var overlayBarLayers = this.document.getLayersNamed('Overlay Bar');
     for (var j = 0; j < overlayBarLayers.length; j++) {
-      var barGradient = overlayBarLayers[j].style.fills[0].gradient
-      // Alpha 57%
-      barGradient.stops[0].color = (this.localColor().slice(0, -2) + '91');
-      // Alpha 92%
-      barGradient.stops[1].color = (this.localColor().slice(0, -2) + 'EB');
+      if (vertical == 'Wealth Management')
+        { overlayBarLayers[j].style.opacity = 0.5 }
+      else {
+        var barGradient = overlayBarLayers[j].style.fills[0].gradient
+        // Alpha 57%
+        barGradient.stops[0].color = (this.localColor().slice(0, -2) + '91');
+        // Alpha 92%
+        barGradient.stops[1].color = (this.localColor().slice(0, -2) + 'EB');
+      }
     }
   }
 
