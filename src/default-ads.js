@@ -43,6 +43,7 @@ export function updateTextFields(vertical) {
     new TextField(document, 'Location').update();
     new PhoneField(document, 'Area Code').update();
     new TextField(document, 'Listing Tagline').update();
+    new TextField(document, 'Agent Title').update();
   } else if (vertical === 'Mortgage') {
     new TextField(document, 'Location').update();
     new TextField(document, 'Button Text').update();
@@ -57,24 +58,40 @@ export function updateTextFields(vertical) {
 }
 
 export function updateLogos(vertical) {
-  if (vertical === 'Real Estate') {
+  if (vertical === 'Motion Real Estate') {
+    new ImageSizer(document, 'Logos', 'Listing').update();
+    var listingLogo = new ImageSizer(document, 'Logos', 'Listing').getImageCanvas();
+    var listingLogoLocator = new LogoLocator(document, listingLogo);
+    listingLogoLocator.centerAlign('listings-1-web-slide2');
+    listingLogoLocator.centerAlign('listings-1-web-slide3');
+    listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
+    listingLogoLocator.centerAlign('listings-2-web-slide1');
+    listingLogoLocator.centerAlign('listings-2-web-slide2');
+    listingLogoLocator.centerAlign('Social Media Listing Ad Style 2');
+    listingLogoLocator.rightAlign('listings-3-web-slide1');
+    listingLogoLocator.rightAlign('listings-3-web-slide3');
+    listingLogoLocator.leftAlign('Social Media Listing Ad Style 3');
+  } else if (vertical === 'Real Estate') {
     new ImageSizer(document, 'Logos', 'Listing').update();
     var listingLogo = new ImageSizer(document, 'Logos', 'Listing').getImageCanvas();
     var listingLogoLocator = new LogoLocator(document, listingLogo)
     listingLogoLocator.centerAlign('listings-1-web');
     listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
   }
-  new ImageSizer(document, 'Logos', 'Brand').update();
-  var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
-  var brandLogoLocator = new LogoLocator(document, brandLogo)
-  brandLogoLocator.leftAlign('brand-1-web');
-  brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
-  brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
-  if (vertical !== 'Wealth Management') {
-    brandLogoLocator.leftAlign('sphere-1-web');
-    brandLogoLocator.leftAlign('brand-1-banner-slide-one');
-    brandLogoLocator.leftAlign('brand-1-banner-slide-two');
-    brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
+
+  if (vertical !== 'Motion Real Estate') {
+    new ImageSizer(document, 'Logos', 'Brand').update();
+    var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
+    var brandLogoLocator = new LogoLocator(document, brandLogo)
+    brandLogoLocator.leftAlign('brand-1-web');
+    brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
+    brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
+    if (vertical !== 'Wealth Management') {
+      brandLogoLocator.leftAlign('sphere-1-web');
+      brandLogoLocator.leftAlign('brand-1-banner-slide-one');
+      brandLogoLocator.leftAlign('brand-1-banner-slide-two');
+      brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
+    }
   }
 }
 

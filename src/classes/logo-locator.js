@@ -27,6 +27,15 @@ export default class LogoLocator {
     }
   }
 
+  rightAlign(artboardName, padding) {
+    this.alignVertical = 'middle';
+    this.alignHorizontal = 'right';
+    this.padding = padding || 5;
+    var localLogo = this.findArtboardLogo(artboardName);
+    this.setWrapper(artboardName);
+    localLogo.frame = this.setDimensions();
+  }
+
   findArtboardLogo(artboardName) {
     return this.logo.getAllInstances().filter(function (local) {
       return local.getParentArtboard().name === artboardName
