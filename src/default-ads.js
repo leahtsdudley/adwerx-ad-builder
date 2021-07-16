@@ -39,7 +39,7 @@ export function handleTertiary() {
 export function updateTextFields(vertical) {
   new TextField(document, 'Partner Name').update();
   new TextField(document, 'Retargeting Tagline').update();
-  if (vertical === 'Real Estate') {
+  if (vertical === 'Real Estate' || vertical === 'Motion Real Estate') {
     new TextField(document, 'Location').update();
     new PhoneField(document, 'Area Code').update();
     new TextField(document, 'Listing Tagline').update();
@@ -66,8 +66,8 @@ export function updateLogos(vertical) {
     listingLogoLocator.centerAlign('listings-1-web-slide3');
     listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
     listingLogoLocator.centerAlign('listings-2-web-slide1');
-    listingLogoLocator.centerAlign('listings-2-web-slide2');
-    listingLogoLocator.centerAlign('Social Media Listing Ad Style 2');
+    listingLogoLocator.rightAlign('listings-2-web-slide2');
+    listingLogoLocator.rightAlign('Social Media Listing Ad Style 2');
     listingLogoLocator.rightAlign('listings-3-web-slide1');
     listingLogoLocator.rightAlign('listings-3-web-slide3');
     listingLogoLocator.leftAlign('Social Media Listing Ad Style 3');
@@ -77,41 +77,51 @@ export function updateLogos(vertical) {
     var listingLogoLocator = new LogoLocator(document, listingLogo)
     listingLogoLocator.centerAlign('listings-1-web');
     listingLogoLocator.centerAlign('Social Media Listing Ad Style 1');
-  }
-
-  if (vertical !== 'Motion Real Estate') {
+    new ImageSizer(document, 'Logos', 'Brand').update();
+    var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
+    var brandLogoLocator = new LogoLocator(document, brandLogo)
+    brandLogoLocator.leftAlign('brand-1-web');
+    brandLogoLocator.leftAlign('sphere-1-web');
+    brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
+    brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
+    brandLogoLocator.leftAlign('brand-1-banner-slide-one');
+    brandLogoLocator.leftAlign('brand-1-banner-slide-two');
+    brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
+  } else if (vertical === 'Wealth Management') {
     new ImageSizer(document, 'Logos', 'Brand').update();
     var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
     var brandLogoLocator = new LogoLocator(document, brandLogo)
     brandLogoLocator.leftAlign('brand-1-web');
     brandLogoLocator.centerAlign('Social Media Brand Ad Style 1');
     brandLogoLocator.centerAlign('brand-1-ad-builder', 1);
-    if (vertical !== 'Wealth Management') {
-      brandLogoLocator.leftAlign('sphere-1-web');
-      brandLogoLocator.leftAlign('brand-1-banner-slide-one');
-      brandLogoLocator.leftAlign('brand-1-banner-slide-two');
-      brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
-    }
+  } else if (vertical === 'Mortgage') {
+    new ImageSizer(document, 'Logos', 'Brand').update();
+    var brandLogo = new ImageSizer(document, 'Logos', 'Brand').getImageCanvas();
+    var brandLogoLocator = new LogoLocator(document, brandLogo)
+    brandLogoLocator.leftAlign('sphere-1-web');
+    brandLogoLocator.leftAlign('brand-1-banner-slide-one');
+    brandLogoLocator.leftAlign('brand-1-banner-slide-two');
+    brandLogoLocator.leftAlign('brand-1-mobile-slide-three');
   }
 }
 
-export function updateImages(vertical) {
-  if (vertical === 'Real Estate') {
-    var housePhoto = new ImageSizer(document, 'Photos', 'House');
-    housePhoto.update();
-    var canvas = housePhoto.getImageCanvas();
-    new PhotoLocator(document, 'House', canvas).update();
-  }
+// export function updateImages(vertical) {
+//   if (vertical === 'Real Estate' || vertical === 'Motion Real Estate') {
+//     var housePhoto = new ImageSizer(document, 'Photos', 'House');
+//     housePhoto.update();
+//     var canvas = housePhoto.getImageCanvas();
+//     new PhotoLocator(document, 'House', canvas).update();
+//   }
 
-  if (vertical !== 'Wealth Management') {
-    var agentPhoto = new ImageSizer(document, 'Photos', 'Agent');
-    var canvas = agentPhoto.getImageCanvas();
-    agentPhoto.update();
-    new PhotoLocator(document, 'Agent', canvas).update();
-  } else {
-    var backgroundPhoto = new ImageSizer(document, 'Photos', 'Background');
-    backgroundPhoto.update();
-    var canvas = backgroundPhoto.getImageCanvas();
-    new PhotoLocator(document, 'Background', canvas).update();
-  }
-}
+//   if (vertical === 'Wealth Management') {
+//     var backgroundPhoto = new ImageSizer(document, 'Photos', 'Background');
+//     backgroundPhoto.update();
+//     var canvas = backgroundPhoto.getImageCanvas();
+//     new PhotoLocator(document, 'Background', canvas).update();
+//   } else {
+//     var agentPhoto = new ImageSizer(document, 'Photos', 'Agent');
+//     var canvas = agentPhoto.getImageCanvas();
+//     agentPhoto.update();
+//     new PhotoLocator(document, 'Agent', canvas).update();
+//   }
+// }

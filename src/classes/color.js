@@ -114,12 +114,12 @@ export default class Color {
     }
   }
 
-  findGroupedText(colorLayer) {
-    var artboard = colorLayer.getParentArtboard();
-    return artboard.layers.filter(function (layer) {
-      return layer.type === 'Group' && layer.name === 'Phone and Location'
-    })
-  }
+  // findGroupedText(colorLayer) {
+  //   var artboard = colorLayer.getParentArtboard();
+  //   return artboard.layers.filter(function (layer) {
+  //     return layer.type === 'Group' && layer.name === 'Phone and Location'
+  //   })
+  // }
 
   setOverlayBarColor(vertical) {
     var overlayBarLayers = this.document.getLayersNamed('Overlay Bar');
