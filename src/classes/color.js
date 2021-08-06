@@ -3,13 +3,10 @@ import ColorVariable from "./color-variable";
 export default class Color {
   constructor(document, fieldName) {
     this.document = document;
-    this.fieldName = fieldName;
     this.input = fieldName + "-color-input";
     this.text = fieldName + "-color-text";
     this.display = fieldName + "-color-display";
     this.group = fieldName + " color";
-    // this.font = fieldName + "-font-color";
-
   }
 
   update(vertical) {
@@ -17,10 +14,12 @@ export default class Color {
       var colorGroup = this.document.getLayersNamed(this.group)[0];
       colorGroup.hidden = true;
     } else {
-      // this.setDisplay();
+      this.setDisplay();
       this.setAdColors(vertical);
-      // this.setText();
-      // this.setFontColor();
+      this.setText();
+      if (vertical === 'Motion Real Estate' && this.input === 'secondary-color-input') {
+        this.setFontColor();
+      }
     }
   }
 
@@ -54,24 +53,19 @@ export default class Color {
   }
 
   setAdColors(vertical) {
-    if (vertical === 'Motion Real Estate') {
-      console.log(this.fieldName);
-      this.setColorVariable();
-    } else {
-      this.setSharedStyle();
-      var sharedColorLayers = this.getSharedStyle().getAllInstancesLayers();
-      for (var i = 0; i < sharedColorLayers.length; i++) {
-        sharedColorLayers[i].style.syncWithSharedStyle(this.getSharedStyle());
-        // var textLayers = this.findLocalText(sharedColorLayers[i]);
-        // this.setTextColor(textLayers);
-        var buttonBorderLayers = this.findLocalButtonBorders(sharedColorLayers[i]);
-        if (buttonBorderLayers.length > 0) {
-          this.setButtonBorderColor(buttonBorderLayers);
-        }
+    this.setSharedStyle();
+    var sharedColorLayers = this.getSharedStyle().getAllInstancesLayers();
+    for (var i = 0; i < sharedColorLayers.length; i++) {
+      sharedColorLayers[i].style.syncWithSharedStyle(this.getSharedStyle());
+      var textLayers = this.findLocalText(sharedColorLayers[i]);
+      this.setTextColor(textLayers);
+      var buttonBorderLayers = this.findLocalButtonBorders(sharedColorLayers[i]);
+      if (buttonBorderLayers.length > 0) {
+        this.setButtonBorderColor(buttonBorderLayers);
       }
-      if (this.input === 'primary-color-input') {
-        this.setOverlayBarColor(vertical);
-      }
+    }
+    if (this.input === 'primary-color-input') {
+      this.setOverlayBarColor(vertical);
     }
   }
 
@@ -95,21 +89,26 @@ export default class Color {
     })
   }
 
-  // setTextColor(textLayers) {
-  //   for (var j = 0; j < textLayers.length; j++) {
-  //     textLayers[j].style.textColor = this.outputColor(this.localColor())
-  //   }
-  // }
+  setTextColor(textLayers) {
+    for (var j = 0; j < textLayers.length; j++) {
+      textLayers[j].style.textColor = this.outputColor(this.localColor())
+    }
+  }
 
   setText() {
     this.getTextLayer().text = this.localColor().slice(0, -2);
   }
 
   setFontColor() {
-    var text = this.document.getLayersNamed(this.font);
-    for (var i = 0; i < text.length; i++) {
-      text[i].style.textColor = this.localColor()
-    }
+    var changingHeadline = this.document.getLayersNamed('Headline').filter(function (local) {
+      return local.getParentArtboard().name === 'listings-3-web-slide2'
+    })[0];
+    changingHeadline.style.textColor = this.localColor();
+
+    var changingPhone = this.document.getLayersNamed('Phone Number').filter(function (local) {
+      return local.getParentArtboard().name === 'listings-3-web-slide3'
+    })[0];
+    changingPhone.style.textColor = this.localColor();
   }
 
   findLocalButtonBorders(colorLayer) {
