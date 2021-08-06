@@ -7,7 +7,8 @@ import TextField from './classes/text-field';
 import PhoneField from './classes/phone-field';
 import ImageSizer from './classes/image-sizer';
 import LogoLocator from './classes/logo-locator';
-import PhotoLocator from './classes/photo-locator';
+
+// import PhotoLocator from './classes/photo-locator';
 
 var document = require('sketch/dom').getSelectedDocument();
 
@@ -23,15 +24,15 @@ export default function() {
 
 export function updateColors(vertical) {
   new Color(document, 'primary').update(vertical);
-  new Color(document, 'secondary').update();
-  this.handleTertiary();
-  new Color(document, 'additional-1').update();
-  new Color(document, 'additional-2').update();
+  new Color(document, 'secondary').update(vertical);
+  this.handleTertiary(vertical);
+  new Color(document, 'additional-1').update(vertical);
+  new Color(document, 'additional-2').update(vertical);
 }
 
-export function handleTertiary() {
+export function handleTertiary(vertical) {
   var tertiary = new Color(document, 'tertiary');
-  tertiary.update();
+  tertiary.update(vertical);
   var hideTertiary = tertiary.isEmpty();
   new ColorSwatch(document, hideTertiary).update();
 }
