@@ -1,10 +1,11 @@
+import ColorVariable from "./color-variable";
+
 export default class Color {
   constructor(document, fieldName) {
     this.document = document;
     this.input = fieldName + "-color-input";
     this.text = fieldName + "-color-text";
     this.display = fieldName + "-color-display";
-    this.font = fieldName + "-font-color";
     this.group = fieldName + " color";
   }
 
@@ -16,7 +17,9 @@ export default class Color {
       this.setDisplay();
       this.setAdColors(vertical);
       this.setText();
-      this.setFontColor();
+      if (vertical === 'Motion Real Estate' && this.input === 'secondary-color-input') {
+        this.setFontColor();
+      }
     }
   }
 
@@ -41,6 +44,12 @@ export default class Color {
     var color = this.getInputLayer().text
     this.getDisplayLayer().style.fills[0].color = color;
     return this;
+  }
+
+  setColorVariable() {
+    var colorName = this.fieldName;
+    var hexCode = this.getInputLayer().text;
+    new ColorVariable(this.document, colorName, hexCode).update();
   }
 
   setAdColors(vertical) {
@@ -91,10 +100,15 @@ export default class Color {
   }
 
   setFontColor() {
-    var text = this.document.getLayersNamed(this.font);
-    for (var i = 0; i < text.length; i++) {
-      text[i].style.textColor = this.localColor()
-    }
+    var changingHeadline = this.document.getLayersNamed('Headline').filter(function (local) {
+      return local.getParentArtboard().name === 'listings-3-web-slide2'
+    })[0];
+    changingHeadline.style.textColor = this.localColor();
+
+    var changingPhone = this.document.getLayersNamed('Phone Number').filter(function (local) {
+      return local.getParentArtboard().name === 'listings-3-web-slide3'
+    })[0];
+    changingPhone.style.textColor = this.localColor();
   }
 
   findLocalButtonBorders(colorLayer) {
@@ -126,6 +140,14 @@ export default class Color {
     for (var j = 0; j < overlayBarLayers.length; j++) {
       if (vertical == 'Wealth Management')
         { overlayBarLayers[j].style.opacity = 0.5 }
+      else if (vertical == 'Motion Real Estate') {
+        console.log(overlayBarLayers[j]);
+        var barGradient = overlayBarLayers[j].style.fills[0].gradient;
+        // Alpha 0%
+        barGradient.stops[0].color = (this.localColor().slice(0, -2) + '00');
+        // Alpha 100%
+        barGradient.stops[1].color = (this.localColor().slice(0, -2) + 'FF');
+      }
       else {
         var barGradient = overlayBarLayers[j].style.fills[0].gradient
         // Alpha 57%
