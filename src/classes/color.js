@@ -140,6 +140,14 @@ export default class Color {
     for (var j = 0; j < overlayBarLayers.length; j++) {
       if (vertical == 'Wealth Management')
         { overlayBarLayers[j].style.opacity = 0.5 }
+      else if (vertical == 'Motion Real Estate') {
+        console.log(overlayBarLayers[j]);
+        var barGradient = overlayBarLayers[j].style.fills[0].gradient;
+        // Alpha 0%
+        barGradient.stops[0].color = (this.localColor().slice(0, -2) + '00');
+        // Alpha 100%
+        barGradient.stops[1].color = (this.localColor().slice(0, -2) + 'FF');
+      }
       else {
         var barGradient = overlayBarLayers[j].style.fills[0].gradient
         // Alpha 57%
