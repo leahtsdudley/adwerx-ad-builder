@@ -1,5 +1,6 @@
 import sketch from 'sketch'
 // documentation: https://developer.sketchapp.com/reference/api/
+// THIS IS A TEST
 
 import Color from './classes/color';
 import ColorSwatch from "./classes/color-swatch";
